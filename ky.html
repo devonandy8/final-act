@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kyari ❤️</title>
+<style>
+    body {
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+        text-transform: capitalize;
+    }
+
+    .container {
+        max-width: 700px;
+        margin: auto;
+        padding: 20px;
+        z-index: 1;
+    }
+    img {
+        max-width: 100%;
+        border-radius: 10px;
+        margin-top: 15px;
+    }
+    button {
+        padding: 12px 25px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        margin: 10px;
+        transition: 0.3s;
+        z-index: 2;
+
+    }
+   
+    .yes {
+        background-color: #ffb6c1;
+        color: white;   
+        font-size: 20px;
+        
+    }
+    .no {
+        background-color: #f0f0f0;
+        color: black;
+        font-size: 16px;
+        position: relative;
+    }
+    .prev {
+        background-color: #add8e6;
+        color: white;
+        font-size: 18px;
+    }
+    .memories-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-top: 20px;
+        justify-items: center;
+        align-items: center;
+    }
+    .memories-grid img {
+        object-fit: cover;
+        border-radius: 16px;
+        width: 300px;
+        max-height: 300px;
+    }
+    canvas#confetti {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+    }
+    .old-paper {
+        background-color: #f7e5c2;
+        padding: 20px;
+        border-radius: 15px;
+        margin-top: 20px;
+        font-size: 18px;
+        max-width: 700px;
+        line-height: 1.6;
+        text-align: left;
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+</style>
+</head>
+<body>
+
+<canvas id="confetti"></canvas>
+<audio id="song" src="kali_uchis_melting.mp3" preload="auto"></audio>
+
+<div class="container">
+    <h1 id="reasonTitle"></h1>
+    <div id="reasonImageContainer"></div>
+    <div id="buttons" style="margin-top: 20px;"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+const reasons = [
+    { 
+        text: "13 REASONS WHY WE NEED A SECOND CHANCE", 
+        intro: true,
+        spanText: "This is my final act. It took a lot of effort.This simple thing is 261 lines of code i wrote. Please give it thought one last time. CLICK THE BUTTON BELOW TO START." 
+    },
+    { text: "Reason 1: You make me happy(A LOT) and I like your smile❤️" },
+    { text: "Reason 2: we were both there for each other when things got tough 💕" },
+    { text: "Reason 3: I teach you math(sometimes) 🥹" },
+    { text: "Reason 4: we knew each others flaws and still stayed 🙁" },
+    { text: "Reason 5: we never got to finish the notebook or arcane or spiderman(cause you slept) 😭" },
+    { text: "Reason 6: we had a lot of plans I wanna make come to life 🤔" },
+    { text: "Reason 7: We wanted to grow old together ⏰" },
+    { text: "Reason 8: We look very good together 🫰🏾" },
+    { text: "Reason 9: I dont give up on the things i set my mind to(My dreams 😉)" },
+    { text: "Reason 10: YOU make ME A BETTER PERSON 😘" },
+    { text: "Reason 11: I'm the cutest boy you gon' ever meet in your life😎" },
+    { text: "Reason 12: I'm very smart, and you're dumb so we're lowkey made for each other 🕵🏾‍♀️" },
+    { text: "Reason 13: we had a lot of good memories and I wouldn't mind reliving them again 🙂" },
+    { text: "best reason: I love you" },
+    { text: "OUR MEMORIES", grid: ["pag1.jpg","pic2.jpg","pic3.jpg","pic4.jpg","pic5.jpg","pic6.jpg"] },
+        { text: "Dear Joyce, ", oldPaper: true, textContent: "I hope this letter reaches you well, even after everything that's happened recently, I still want to keep my promises to you. I want to share every laugh, every struggle, every dream with you. You’re my heart, my inspiration, and the reason I still believe in love. I meant everything i said to you before the fights. I would say some more but i dont have my way with words like you do. Let’s make new memories together, This time, differently. I realise my mistakes and you realised yours too. Proverbs 26:11: never return to the old mistakes. Let's forget everything abt this summer and make things right. Best regards shorty. I hope to hear from you again :)  " },
+
+    { text: "Kyari, will you give us one more chance??", final: true },
+
+];
+
+let currentIndex = 0;
+const title = document.getElementById('reasonTitle');
+const imageContainer = document.getElementById('reasonImageContainer');
+const buttonsDiv = document.getElementById('buttons');
+const song = document.getElementById('song');
+
+function showReason(index){
+    const reason = reasons[index];
+    title.textContent = reason.text;
+    buttonsDiv.innerHTML = "";
+    imageContainer.innerHTML = "";
+    
+    // Intro page
+    if(reason.intro){
+        const spanEl = document.createElement("span");
+        spanEl.textContent = reason.spanText;
+        spanEl.style.display = "block";
+        spanEl.style.marginTop = "10px";
+        spanEl.style.fontSize = "18px";
+        spanEl.style.color = "#ff69b4";
+        imageContainer.appendChild(spanEl);
+
+        const startBtn = document.createElement("button");
+        startBtn.textContent = "START ❤️";
+        startBtn.classList.add("yes");
+        startBtn.onclick = ()=>{
+            song.play();
+            currentIndex++;
+            showReason(currentIndex);
+        };
+        buttonsDiv.appendChild(startBtn);
+        return;
+    }
+
+    // Memories grid
+    if(reason.grid){
+        const gridDiv = document.createElement("div");
+        gridDiv.classList.add("memories-grid");
+        reason.grid.forEach(src=>{
+            const imgEl = document.createElement("img");
+            imgEl.src = src;
+            gridDiv.appendChild(imgEl);
+        });
+        imageContainer.appendChild(gridDiv);
+    } else if(reason.img){
+        const imgEl = document.createElement("img");
+        imgEl.src = reason.img;
+        imageContainer.appendChild(imgEl);
+    } else if(reason.oldPaper){
+        const paperDiv = document.createElement("div");
+        paperDiv.classList.add("old-paper");
+        paperDiv.textContent = reason.textContent;
+        imageContainer.appendChild(paperDiv);
+    }
+
+    // Previous button
+    if(index>0 && !reason.final ){
+        const prevBtn = document.createElement("button");
+        prevBtn.textContent = "⬅️ Previous";
+        prevBtn.classList.add("prev");
+        prevBtn.onclick = ()=>{
+            currentIndex--;
+            showReason(currentIndex);
+        };
+        buttonsDiv.appendChild(prevBtn);
+    }
+
+    // Next or final buttons
+    if(!reason.final){
+        const nextBtn = document.createElement("button");
+        nextBtn.textContent = "Next ➡️";
+        nextBtn.classList.add("yes");
+        nextBtn.onclick = ()=>{
+            currentIndex++;
+            showReason(currentIndex);
+        };
+        buttonsDiv.appendChild(nextBtn);
+    } else if(reason.final){
+        const yesBtn = document.createElement("button");
+        yesBtn.textContent = "YES ❤️";
+        yesBtn.classList.add("yes");
+        yesBtn.onclick = ()=>{
+            title.textContent = "I swear on your life you won’t regret it ❤️";
+            imageContainer.innerHTML = "";
+            buttonsDiv.innerHTML = "";
+
+            const confettiCanvas = document.getElementById('confetti');
+            const myConfetti = confetti.create(confettiCanvas, { resize:true, useWorker:true });
+            myConfetti({particleCount:150, spread:70, origin:{y:0.3}});
+            myConfetti({particleCount:150, spread:100, origin:{y:0.3}});
+
+            setTimeout(()=>{
+                title.textContent = "Hold on, you're being redirected to your handsome boy's chat 😘";
+            }, 10000);
+
+            setTimeout(()=>{
+                window.location.href="https://www.instagram.com/direct/t/103886754376859/";
+            }, 15000);
+        };
+        buttonsDiv.appendChild(yesBtn);
+
+        const noBtn = document.createElement("button");
+        noBtn.textContent = "No 😢";
+        noBtn.classList.add("no");
+        noBtn.onmouseover = ()=>{
+            let x = Math.random()*200-100;
+            let y = Math.random()*200-100;
+            noBtn.style.transform=`translate(${x}px,${y}px)`;
+        };
+        noBtn.onclick = ()=>{
+            let x = Math.random()*200-100;
+            let y = Math.random()*200-100;
+            noBtn.style.transform=`translate(${x}px,${y}px)`;
+        };
+        buttonsDiv.appendChild(noBtn);
+    }
+}
+
+showReason(currentIndex);
+</script>
+
+</body>
+</html>

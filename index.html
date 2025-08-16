@@ -59,6 +59,11 @@
         color: white;
         font-size: 20px;
         border-radius: 30% 60% 50% 60% / 60% 80% 70% 95%;
+        transition-duration: 500ms;
+      }
+      .yes:hover {
+        transform: scale(1.05);
+        background-color: #d4295c;
       }
 
       .no {
@@ -66,6 +71,7 @@
         color: black;
         font-size: 16px;
         position: relative;
+        transition-duration: 500ms;
       }
 
       .prev {
@@ -73,6 +79,11 @@
         color: white;
         font-size: 18px;
         border-radius: 50% 60% 50% 60% / 100% 80% 70% 80%;
+        transition-duration: 500ms;
+      }
+      .prev:hover {
+        transform: scale(1.05);
+        background-color: #28b0e5;
       }
 
       .memories-grid {
@@ -88,7 +99,7 @@
         object-fit: cover;
         border-radius: 40% 60% 80% 60% / 40% 40% 60% 80%;
         width: 300px;
- aspect-ratio: 1;
+        aspect-ratio: 1;
       }
 
       canvas#confetti {
@@ -102,19 +113,31 @@
       }
 
       .old-paper {
-        width: 80%;
+        width: 60%;
         margin: auto;
         min-height: 400px;
         padding: 40px;
         background-size: cover;
         color: #3a2f1c;
-        font-size: 18px;
-        line-height: 1.8;
+        font-size: 17px;
+        line-height: 1.2;
         text-align: left;
-        font-family: "Comic Sans MS", cursive, sans-serif;
+
         box-shadow: none !important;
         border-radius: 0 !important;
         background-color: transparent !important;
+        text-transform: none;
+      }
+
+      /* Fade animation */
+      .fade-out {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      .fade-in {
+        opacity: 1;
+        transition: opacity 0.5s ease;
       }
     </style>
   </head>
@@ -122,7 +145,7 @@
     <canvas id="confetti"></canvas>
     <audio id="song" src="kali_uchis_melting.mp3" preload="auto"></audio>
 
-    <div class="container">
+    <div class="container fade-in">
       <h1 id="reasonTitle"></h1>
       <div id="reasonImageContainer"></div>
       <div id="buttons" style="margin-top: 20px"></div>
@@ -132,71 +155,76 @@
     <script>
       const reasons = [
         {
-          text: "13 REASONS WHY WE NEED A SECOND CHANCE",
+          text: "13 REASONS WHY WE DESERVE ONE MORE CHANCE ",
           intro: true,
           spanText:
-            "This is the final effort im making to fix us. It took a lot of effort to do this. This is 375 lines of code i wrote to put a smile on your face. Please give it thought one last time. CLICK THE BUTTON BELOW TO START.",
+            "This is 416 lines of code i wrote to put a smile on your face. It took a lot of effort and like 6 hours. please give it thought one last time. you might even like it",
         },
         {
-          text: "Reason 1: You make me happy(A LOT) and I like your smile and how innocent you are❤️",
+          text: "Reason 1: you made me happy ❤️",
           spanText:
-            "We fought and laughed together, that's about how every love story goes. Thats how i know it was real",
+            "with the things i couldn't share with anyone else, even my family, you were the one i could always count on to listen",
         },
         {
           text: "Reason 2: We were there for each other 💕",
           spanText:
-            "you had just moved to cardiff, less friends, new school, and it was me who was there for you and you for me when i wanted to give up on schooling",
+            "you had just moved to cardiff, less friends, new school, and it was me who was there for you and you for me when i didn't know my way forward with school",
         },
         {
-          text: "Reason 3: I'm your math teacher (school starts in september bbg) 🥹",
-          spanText: "lowk supporting your Accounting dream yfm",
+          text: "Reason 3: I was your personal math teacher when you started your new school 😭",
+          spanText: "we were both supportive of each others' dreams",
         },
         {
-          text: "Reason 4: we've grown a lot thru this short while 🙁",
+          text: "Reason 4: i miss listening to you yap 🙁",
           spanText:
-            "Not substantially but we have and we got time to grow even more together",
+            "we used to stay up late and you would tell me about your friends drama",
         },
         {
           text: "Reason 5: we never got to finish the notebook or arcane or outer banks,etc (cause you have a chronic napping addiction) 😭",
-          spanText: "So uhh we gotta finish what we started yfm, we did finish spiderman tho",
+          spanText: "Gotta finish what we started, right? ",
         },
         {
-          text: "Reason 6: The plans we made could come true, and just imagine how happy we'd be 🤔",
-          spanText: "and i've made progress towards them and I'd hate to see you miss it",
-        },
-        {
-          text: "Reason 7: If we were perfect, there wouldnt be anything to fight for . ⏰",
-          spanText: "our connection is weird but it works",
-        },
-        {
-          text: "Reason 8: We look very good together 🫰🏾",
-          spanText: "you've got some good facial features going on there. pretty tiny asian eyes",
-        },
-        {
-          text: "Reason 9: I dont give up on the things i set my mind to (My dreams 😉)",
-          spanText: "and you're a part of that dream",
-        },
-        { text: "Reason 10: you helped me make good decisions 😘" ,spanText:'encouraging me to start college here and allat'},
-        {
-          text: "Reason 11: I'm the cutest boy you gon' ever meet in your life 😎",
-          spanText: "we all know that. TOP 3 HUMANS OF ALL TIME. JESUS, LEBRON AND ME",
-        },
-        {
-          text: "Reason 12: I'm very smart, and you're kinda dumb so we're lowkey made for each other 🕵🏾‍♀️",
-          spanText: "positive and negative attract init",
-        },
-        {
-          text: "Reason 13: we had a lot of good memories and I wouldn't mind reliving them again 🙂",
-          spanText: "orrrrr we could just make better ones",
-        },
-        {
-          text: "best reason: I love you",
+          text: "Reason 6: We now know what not to do  🤔",
           spanText:
-            "and I know you love me too, even if youre wall of ego makes you act otherwise, and your new friends give you a sense of temporary belonging. ",
+            "I strongly believe we both have had time to reflect on whatever happened and it's hard to start over with someone new when we can just fix what we had ",
+        },
+        {
+          text: "Reason 7: Our promises to each other ⏰",
+          spanText:
+            " although you said you may have said them to satisfy me, at least one of them was true. for the sake of the love you once had for me, we can try to keep them",
+        },
+        {
+          text: "Reason 8: Things like this happen in every relationship🫰🏾",
+          spanText:
+            "things get hard, we realise our flaws but we dont run from them, we learn.",
+        },
+
+        {
+          text: "Reason 9: you helped me make good decisions 😘",
+          spanText: "encouraging me to start college here and allat",
+        },
+        {
+          text: "Reason 10: I'm the smartest and cutest boy you gon' ever meet 😎",
+          spanText: "that's hard to come by and you know it",
+        },
+        {
+          text: "Reason 11: I could be myself around you. and same for you 🕵🏾‍♀️",
+          spanText:
+            "you were the type to mirror everyone you met, but with me, you were just you.",
+        },
+        {
+          text: "Reason 12: we had a lot of good memories and I wouldn't mind reliving them again 🙂",
+          spanText: "orrrrr we could just make even better ones",
+        },
+        {
+          text: "Reason 13: I love you more than anyone would. ❤️",
+          spanText:
+            "i believe you can tell by now. this is not being down bad, this is me being honest. I love you and i want to be with you again. I know deep down you love me too, you just told yourself you had to leave because of the shame ",
         },
         {
           text: "OUR MEMORIES",
-          spanText: "Here are some of our best memories together and some of my favourite photos of you",
+          spanText:
+            "Here are some of our best memories together and some of my favourite photos of you",
           grid: [
             "pag1.jpg",
             "pic2.jpg",
@@ -210,8 +238,7 @@
           text: "Dear Joyce, ",
           oldPaper: true,
           textContent:
-            "I hope this letter finds you well, even after everything that's happened recently, Walking away was never an option, not because i have no self respect or that im blind but i see you for what you are, a human capable of making the wrong choices. And we were both victims of that. and for one thing, lying looked bad on you. But you can either walk away and keep carrying the weight of our past mistakes or we can learn from them and move forward. If we do in fact only live once, I want to share every laugh, every struggle, every dream with you in this one. I meant everything i said to you before the fights. I would say some more but i dont have my way with words the way you do. Let’s make new memories together sweetheart, this time, differently, as strangers that are very fond of each other. I realise my mistakes and ik you realise yours too. Proverbs 26:11: we would be foolish to return to the old mistakes. Let's move on and forget about the past few months. Best regards shorty. I hope to hear from you again :) yours Failthfully, Devonteeee.",
-
+            "I hope this letter finds you well, even after everything that's happened recently, you walking away without a sorry or closure felt like a book without the last page. I'm here not because i have no self respect or that im blind to the wrongs you did, but i see you for who you are, a human capable of making the wrong choices. And we were both victims of that. I pushed you to do what you did by being demanding and controlling which doesn't justify your actions but makes room for correction. Correction for both of us. We're okay without each other but we can be even better with each other. we can either part ways and keep punishing the present with the past or we can learn from them and move forward only if we can both decide to not return to our old mistakes. Proverbs 26:11: we would be foolish to our old bad ways. If we do in fact only live once, I want to share every laugh, every struggle, every dream with you in this one. Ky, Let’s make new memories, as strangers that already know each other. Let's move on together and never mention the past few months. Let's give a second chapter to our story and give it the happily ever after ending.  Best regards shorty. I hope to hear from you again :) yours Failthfully, Devonte Andy.",
         },
         {
           text: "Kyari, will you give us one more chance??",
@@ -228,145 +255,159 @@
       const container = document.querySelector(".container");
 
       function showReason(index) {
-        const reason = reasons[index];
-        title.textContent = reason.text;
-        buttonsDiv.innerHTML = "";
-        imageContainer.innerHTML = "";
+        container.classList.remove("fade-in");
+        container.classList.add("fade-out");
 
-        // Reset container styling for all except old paper
-        container.style.background = "rgb(255, 255, 255, 0.2)";
-        container.style.borderRadius = "30% 60% 50% 60% / 60% 80% 70% 95%";
-        container.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.1)";
-        container.style.padding = "60px";
+        setTimeout(() => {
+          const reason = reasons[index];
+          title.textContent = reason.text;
+          buttonsDiv.innerHTML = "";
+          imageContainer.innerHTML = "";
 
-        // Intro page
-        if (reason.intro) {
-          const spanEl = document.createElement("span");
-          spanEl.textContent = reason.spanText;
-          spanEl.style.display = "block";
-          spanEl.style.marginTop = "10px";
-          spanEl.style.fontSize = "18px";
-          spanEl.style.color = "#ff69b4";
-          imageContainer.appendChild(spanEl);
+          container.style.background = "rgb(255, 255, 255, 0.2)";
+          container.style.borderRadius = "30% 60% 50% 60% / 60% 80% 70% 95%";
+          container.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.1)";
+          container.style.padding = "60px";
 
-          const startBtn = document.createElement("button");
-          startBtn.textContent = "START ❤️";
-          startBtn.classList.add("yes");
-          startBtn.onclick = () => {
-            song.play();
-            currentIndex++;
-            showReason(currentIndex);
-          };
-          buttonsDiv.appendChild(startBtn);
-          return;
-        }
+          if (reason.intro) {
+            const spanEl = document.createElement("span");
+            spanEl.textContent = reason.spanText;
+            spanEl.style.display = "block";
+            spanEl.style.marginTop = "10px";
+            spanEl.style.fontSize = "18px";
+            spanEl.style.color = "red";
+            spanEl.style.textTransform = "uppercase";
+            imageContainer.appendChild(spanEl);
 
-        // Memories grid
-        if (reason.grid) {
-          const gridDiv = document.createElement("div");
-          gridDiv.classList.add("memories-grid");
-          reason.grid.forEach((src) => {
-            const imgEl = document.createElement("img");
-            imgEl.src = src;
-            gridDiv.appendChild(imgEl);
-          });
-          imageContainer.appendChild(gridDiv);
-        } else if (reason.img) {
-          const imgEl = document.createElement("img");
-          imgEl.src = reason.img;
-          imageContainer.appendChild(imgEl);
-        } else if (reason.oldPaper) {
-          // Old paper styling
-          container.style.background = "url('old_page.png') no-repeat center center";
-          container.style.backgroundSize = "cover";
-          container.style.borderRadius = "0";
-          container.style.boxShadow = "none";
-          container.style.padding = "40px";
+            const startBtn = document.createElement("button");
+            startBtn.textContent = "CLICK TO START❤️";
+            startBtn.classList.add("yes");
+            startBtn.onclick = () => {
+              song.play();
+              currentIndex++;
+              showReason(currentIndex);
+            };
+            buttonsDiv.appendChild(startBtn);
 
-          const paperDiv = document.createElement("div");
-          paperDiv.classList.add("old-paper");
-          paperDiv.textContent = reason.textContent;
-          imageContainer.appendChild(paperDiv);
-        }
+            container.classList.remove("fade-out");
+            container.classList.add("fade-in");
+            return;
+          }
 
-        // Previous button
-        if (index > 0 && !reason.final) {
-          const prevBtn = document.createElement("button");
-          prevBtn.textContent = "👈🏻 Previous";
-          prevBtn.classList.add("prev");
-          prevBtn.onclick = () => {
-            currentIndex--;
-            showReason(currentIndex);
-          };
-          buttonsDiv.appendChild(prevBtn);
-        }
-
-        // Add the span below the header
-        if (reason.spanText) {
-          const spanEl = document.createElement("span");
-          spanEl.textContent = reason.spanText;
-          spanEl.style.display = "block";
-          spanEl.style.marginTop = "5px";
-          spanEl.style.fontSize = "16px";
-          spanEl.style.fontWeight = 300;
-          spanEl.style.color = "white";
-          title.appendChild(spanEl);
-        }
-
-        // Next or final buttons
-        if (!reason.final) {
-          const nextBtn = document.createElement("button");
-          nextBtn.textContent = "Next 👉🏾";
-          nextBtn.classList.add("yes");
-          nextBtn.onclick = () => {
-            currentIndex++;
-            showReason(currentIndex);
-          };
-          buttonsDiv.appendChild(nextBtn);
-        } else if (reason.final) {
-          const yesBtn = document.createElement("button");
-          yesBtn.textContent = "YES ❤️";
-          yesBtn.classList.add("yes");
-          yesBtn.onclick = () => {
-            title.textContent = "I swear on your life you won’t regret it ❤️";
-            imageContainer.innerHTML = "";
-            buttonsDiv.innerHTML = "";
-
-            const confettiCanvas = document.getElementById("confetti");
-            const myConfetti = confetti.create(confettiCanvas, {
-              resize: true,
-              useWorker: true,
+          if (reason.grid) {
+            const gridDiv = document.createElement("div");
+            gridDiv.classList.add("memories-grid");
+            reason.grid.forEach((src) => {
+              const imgEl = document.createElement("img");
+              imgEl.src = src;
+              gridDiv.appendChild(imgEl);
             });
-            myConfetti({ particleCount: 150, spread: 70, origin: { y: 0.3 } });
-            myConfetti({ particleCount: 150, spread: 100, origin: { y: 0.3 } });
+            imageContainer.appendChild(gridDiv);
+          } else if (reason.img) {
+            const imgEl = document.createElement("img");
+            imgEl.src = reason.img;
+            imageContainer.appendChild(imgEl);
+          } else if (reason.oldPaper) {
+            container.style.background =
+              "url('old_page.png') no-repeat center center";
+            container.style.backgroundSize = "contain";
+            container.style.borderRadius = "0";
+            container.style.boxShadow = "none";
+            container.style.padding = "40px";
 
-            setTimeout(() => {
-              title.textContent =
-                "Hold on, you're being redirected to your handsome boy's chat 😘";
-            }, 4000);
+            const paperDiv = document.createElement("div");
+            paperDiv.classList.add("old-paper");
+            paperDiv.textContent = reason.textContent;
+            imageContainer.appendChild(paperDiv);
+          }
 
-            setTimeout(() => {
-              window.location.href =
-                "https://www.instagram.com/direct/t/103886754376859/";
-            }, 9000);
-          };
-          buttonsDiv.appendChild(yesBtn);
+          if (index > 0 && !reason.final) {
+            const prevBtn = document.createElement("button");
+            prevBtn.textContent = "👈🏻 Previous";
+            prevBtn.classList.add("prev");
+            prevBtn.onclick = () => {
+              currentIndex--;
+              showReason(currentIndex);
+            };
+            buttonsDiv.appendChild(prevBtn);
+          }
 
-          const noBtn = document.createElement("button");
-          noBtn.textContent = "No 😢";
-          noBtn.classList.add("no");
-          noBtn.onmouseover = () => {
-            let x = Math.random() * 200 - 100;
-            let y = Math.random() * 200 - 100;
-            noBtn.style.transform = `translate(${x}px,${y}px)`;
-          };
-          noBtn.onclick = () => {
-            let x = Math.random() * 200 - 100;
-            let y = Math.random() * 200 - 100;
-            noBtn.style.transform = `translate(${x}px,${y}px)`;
-          };
-          buttonsDiv.appendChild(noBtn);
-        }
+          if (reason.spanText) {
+            const spanEl = document.createElement("span");
+            spanEl.textContent = reason.spanText;
+            spanEl.style.display = "block";
+            spanEl.style.marginTop = "5px";
+            spanEl.style.fontSize = "16px";
+            spanEl.style.fontWeight = 300;
+            spanEl.style.color = "white";
+            title.appendChild(spanEl);
+          }
+
+          if (!reason.final) {
+            const nextBtn = document.createElement("button");
+            nextBtn.textContent = "Next 👉🏾";
+            nextBtn.classList.add("yes");
+            nextBtn.onclick = () => {
+              currentIndex++;
+              showReason(currentIndex);
+            };
+            buttonsDiv.appendChild(nextBtn);
+          } else if (reason.final) {
+            const yesBtn = document.createElement("button");
+            yesBtn.textContent = "YES ❤️";
+            yesBtn.classList.add("yes");
+            yesBtn.onclick = () => {
+              title.textContent = "I swear on your life you won’t regret it ❤️";
+              imageContainer.innerHTML = "";
+              buttonsDiv.innerHTML = "";
+
+              const confettiCanvas = document.getElementById("confetti");
+              const myConfetti = confetti.create(confettiCanvas, {
+                resize: true,
+                useWorker: true,
+              });
+              myConfetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.3 },
+              });
+              myConfetti({
+                particleCount: 150,
+                spread: 100,
+                origin: { y: 0.3 },
+              });
+
+              setTimeout(() => {
+                title.textContent =
+                  "Hold on, you're being redirected to your handsome boy's chat 😘";
+              }, 4000);
+
+              setTimeout(() => {
+                window.location.href =
+                  "https://www.instagram.com/direct/t/103886754376859/";
+              }, 9000);
+            };
+            buttonsDiv.appendChild(yesBtn);
+
+            const noBtn = document.createElement("button");
+            noBtn.textContent = "No 😢";
+            noBtn.classList.add("no");
+            noBtn.onmouseover = () => {
+              let x = Math.random() * 200 - 100;
+              let y = Math.random() * 200 - 100;
+              noBtn.style.transform = `translate(${x}px,${y}px)`;
+            };
+            noBtn.onclick = () => {
+              let x = Math.random() * 200 - 100;
+              let y = Math.random() * 200 - 100;
+              noBtn.style.transform = `translate(${x}px,${y}px)`;
+            };
+            buttonsDiv.appendChild(noBtn);
+          }
+
+          container.classList.remove("fade-out");
+          container.classList.add("fade-in");
+        }, 500);
       }
 
       showReason(currentIndex);

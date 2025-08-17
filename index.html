@@ -3,7 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kyari ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>ForHer</title>
     <style>
       body {
         font-family: "Comic Sans MS", cursive, sans-serif;
@@ -29,7 +35,7 @@
         z-index: 1;
         background-color: rgb(255, 255, 255, 0.2);
         border-radius: 30% 60% 50% 60% / 60% 80% 70% 95%;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 30px rgba(225, 105, 123, 0.6);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -55,7 +61,8 @@
       }
 
       .yes {
-        background-color: #ffb6c1;
+        background-color: #e1697b;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
         color: white;
         font-size: 20px;
         border-radius: 30% 60% 50% 60% / 60% 80% 70% 95%;
@@ -63,7 +70,7 @@
       }
       .yes:hover {
         transform: scale(1.05);
-        background-color: #d4295c;
+        background-color: #91072c;
       }
 
       .no {
@@ -72,18 +79,21 @@
         font-size: 16px;
         position: relative;
         transition-duration: 500ms;
+        border-radius: 30% 60% 50% 60% / 60% 80% 70% 95%;
       }
 
       .prev {
-        background-color: #add8e6;
+        background-color: #69b3e1;
         color: white;
         font-size: 18px;
         border-radius: 50% 60% 50% 60% / 100% 80% 70% 80%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+
         transition-duration: 500ms;
       }
       .prev:hover {
         transform: scale(1.05);
-        background-color: #28b0e5;
+        background-color: #4bc3eb;
       }
 
       .memories-grid {
@@ -113,14 +123,14 @@
       }
 
       .old-paper {
-        width: 60%;
+        width: 75%;
         margin: auto;
         min-height: 400px;
         padding: 40px;
         background-size: cover;
         color: #3a2f1c;
-        font-size: 17px;
-        line-height: 1.2;
+        font-size: 16px;
+        line-height: 1.5;
         text-align: left;
 
         box-shadow: none !important;
@@ -157,11 +167,13 @@
         {
           text: "13 REASONS WHY we deserve a second chance ❤️",
           intro: true,
-          spanText:
-            "416 lines of code to see if i can still make you smile. Subtle surprise in the end❤️. \n CLick below to start",
+          spanText: `This is the modern day equivalent of send a letter through a hawk.
+                I wrote 436 lines of code to make this website for you hoping it would be the most thoughtful and cutest thing anybody ever did for you. Give it a chance. You won't regret it. 
+              
+                CLICK BELOW TO START `,
         },
         {
-          text: "Reason 1: you made me happy ❤️",
+          text: "Reason 1: You make me happy ❤️",
           spanText:
             "with the things i couldn't share with anyone else, even my family, you were the one i could always count on to listen",
         },
@@ -171,54 +183,58 @@
             "you had just moved to cardiff, less friends, new school, and it was me who was there for you and you for me when i didn't know my way forward with school",
         },
         {
-          text: "Reason 3: I was your personal math teacher when you started your new school 😭",
-          spanText: "we were both supportive of each others' dreams",
-        },
-        {
-          text: "Reason 4: i miss listening to you yap 🙁",
+          text: "Reason 3: We supported each others' dreams 😭",
           spanText:
-            "we used to stay up late and you would tell me about your friends drama",
+            "remember when i used to help you with math and check your essays? also when you used to check out my website designs and let me know what wasn't right? ",
         },
         {
-          text: "Reason 5: we never got to finish the notebook or arcane or outer banks,etc (cause you have a chronic napping addiction) 😭",
+          text: "Reason 4: I miss your voice (your singing and yapping voice) 🙁",
+          spanText:
+            "when we first met, you tried curing my insomnia with fucking twinkle twinkle little stars.",
+        },
+        {
+          text: "Reason 5: we never got to finish outer banks or the notebook",
           spanText: "Gotta finish what we started, right? ",
         },
         {
-          text: "Reason 6: We can choose growth over mistakes🤔",
+          text: "Reason 6: We can choose growth over the shame of our mistakes🤔",
           spanText:
             "I trust we both have had time to reflect on whatever went wrong and won't repeat them ",
         },
         {
           text: "Reason 7: Trust can be rebuilt⏰",
-          spanText: "I dont wanna punish the present with the past",
+          spanText:
+            "I dont wanna punish the present with the past, with what was only a phase. Your new friends made you feel like you belonged, and i understand that now. We can rebuild that trust we once had without killing your friendship or our love ",
         },
         {
-          text: "Reason 8: Things like this happen in every relationship, even your next one🫰🏾",
+          text: "Reason 8: Fights are normal in every relationship, even your next one🫰🏾",
           spanText:
-            "things get hard, we realise our flaws and red flags but we dont run from them, we learn to change to make them better.",
+            "Even with your mom, you fight but that doesnt mean you stop loving each other. every relationship has this stage, when it's easier to let go than hold on. It would be a shame to see you actually give up soo quickly",
         },
 
         {
           text: "Reason 9: you helped me make good decisions 😘",
-          spanText: "encouraging me to start college here and allat",
+          spanText:
+            "encouraging me to start uni here and helping me with smoking and gambling",
         },
         {
-          text: "Reason 10: I'm the smartest and cutest man you gon' ever meet 😎",
-          spanText: "that's hard to come by and you know it",
+          text: "Reason 10: We look good together 😎",
+          spanText: "Handsome and smart devon and beautiful and dumb Kyari",
         },
         {
           text: "Reason 11: I could be myself around you. and same for you 🕵🏾‍♀️",
           spanText:
-            "you were the type to mirror everyone you met, but with me, you were just you.",
+            "we were both vulnerable with each other, sharing our insecurities.  ",
         },
         {
           text: "Reason 12: we had a lot of good memories and I wouldn't mind reliving them again 🙂",
-          spanText: "orrrrr we could just make even better ones",
+          spanText:
+            "imagine the peace after being able to fight through this situation right here. like you're with devon but less fights and more understanding. ",
         },
         {
-          text: "Reason 13: I love you more than anyone would. ❤️",
+          text: "Reason 13: Mahal kita higit sa sinuman. ❤️",
           spanText:
-            "i believe you can tell by now. this is not being down bad, this is me being honest. ",
+            "i believe you can tell by now. this is not being down bad, I met you on a game, it shouldve been easy to move on if i didn't actually love and care like i said I did ",
         },
         {
           text: "OUR MEMORIES",
@@ -236,19 +252,19 @@
         {
           text: "Dear Joyce, ",
           oldPaper: true,
-          textContent: `I hope this letter finds you well, even after everything that's happened recently, you walking away without closure felt like a book without the last page. 
+          textContent: `I hope this letter finds you well, even after everything that's happened recently, you walking away without closure felt like a book without the last page.
 
-Im not writing this to argue over the past, but i can understand how i overwhelmed you with my demands at times, which may have pushed you away and that only makes room for correction. Correction for both of us. And we both can’t pretend that we’re totally indifferent about each other all of a sudden. I respect your decision to walk away if that's what you decide on, but at least now i can say i tried in the most thoughtful way possible.
+      I'm not writing this to argue over the past, but i can understand how i overwhelmed you with my demands at times, which may have pushed you away and that only makes room for correction. Correction for both of us. And we both can’t pretend that we’re totally indifferent about each other all of a sudden cause if it's one thing i know, you didn't stop loving me, you just got tired of fighting over the same things. I did too.
 
-We can either part ways and keep carrying the weight of how we could’ve done things differently or we can learn from them and grow to never repeat the mistakes( Proverbs 26:11 ).  It won’t be easy if that’s what you’re looking for but easy isn’t worth fighting for sweetheart.
+      But we can either part ways and keep carrying the weight of how we could’ve done things differently or we can learn from them and grow to never repeat the mistakes( Proverbs 26:11 ) and never mention them again. It was never meant to be easy, but easy isn’t worth fighting for.
 
-If we do in fact only live once, I want to share every laugh, every struggle, every dream with you in this one. Ky, Let’s make new memories, as strangers that already know each other. Saves you the trouble of telling someone else that you prefer tulips to roses or that you love pink or oversize jerseys. Let's move on together and never look back at the past few months with regret or mention them again. Let's give a second chapter to our story and give it the happily ever after ending we deserve. . Best regards shorty. I hope to hear from you again :)  
+      Ky, If we do in fact only live once, I want to share every laugh, every struggle, every dream with you in this one. Let’s make new memories, as strangers that already know each other. Saves you the trouble of telling someone else that you prefer tulips to roses or that you love pink and oversize jerseys. Let's give a second chapter to our story and give it the happily ever after ending we deserve. . Best regards shorty. I hope this appeals to the good side of you :)
 
-Yours Failthfully, Devonte Andy.
-`,
+      Yours Failthfully, Devonte Andy.
+      `,
         },
         {
-          text: "Kyari, will you give us one more chance??",
+          text: "Kyari, would you give yourself one more chance to try again??",
           final: true,
           spanText: "PRESS NO AND DIE INSTANTLY 🧌",
         },
@@ -281,13 +297,16 @@ Yours Failthfully, Devonte Andy.
             spanEl.textContent = reason.spanText;
             spanEl.style.display = "block";
             spanEl.style.marginTop = "10px";
-            spanEl.style.fontSize = "18px";
+            spanEl.style.fontSize = "24px";
             spanEl.style.color = "red";
-            spanEl.style.textTransform = "uppercase";
+            spanEl.style.fontFamily = "Caveat, cursive  ";
+            spanEl.style.letterSpacing = "1.5px";
+            spanEl.style.textTransform = "none";
+
             imageContainer.appendChild(spanEl);
 
             const startBtn = document.createElement("button");
-            startBtn.textContent = "CLICK TO START❤️";
+            startBtn.textContent = "START❤️";
             startBtn.classList.add("yes");
             startBtn.onclick = () => {
               song.play();

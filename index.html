@@ -27,20 +27,27 @@
         position: relative;
         text-transform: capitalize;
       }
-
+      .no {
+        color: white;
+        background-color: #69b3e1;
+        box-shadow: 0 4px 8px #69b3e1;
+        border-radius: 40% 60% 50% 60% / 60% 80% 70% 95%;
+      }
       .container {
         max-width: 700px;
         margin: auto;
         padding: 60px;
         z-index: 1;
-        background-color: rgb(255, 255, 255, 0.2);
-        border-radius: 30% 60% 50% 60% / 60% 80% 70% 95%;
-        box-shadow: 0 10px 30px rgba(225, 105, 123, 0.6);
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 40% 60% 50% 60% / 60% 80% 70% 95%;
+        box-shadow: 0 10px 30px rgb(240, 61, 88, 0.6);
+        backdrop-filter: blur(5px);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
+        color: rgb(42, 42, 42);
       }
 
       img {
@@ -65,21 +72,14 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
         color: white;
         font-size: 20px;
-        border-radius: 30% 60% 50% 60% / 60% 80% 70% 95%;
+        border-radius: 40% 60% 50% 60% / 60% 80% 70% 95%;
         transition-duration: 500ms;
-      }
-      .yes:hover {
-        transform: scale(1.05);
-        background-color: #91072c;
       }
 
-      .no {
-        background-color: #f0f0f0;
-        color: black;
-        font-size: 16px;
-        position: relative;
-        transition-duration: 500ms;
-        border-radius: 30% 60% 50% 60% / 60% 80% 70% 95%;
+      .yes:hover {
+        transform: scale(1.05);
+        background-color: #e1697b;
+        box-shadow: 0 4px 36px #f0687c;
       }
 
       .prev {
@@ -88,12 +88,13 @@
         font-size: 18px;
         border-radius: 50% 60% 50% 60% / 100% 80% 70% 80%;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-
         transition-duration: 500ms;
       }
+
       .prev:hover {
         transform: scale(1.05);
-        background-color: #4bc3eb;
+        background-color: rgb(75, 195, 235);
+        box-shadow: 0 4px 36px rgba(20, 151, 233, 0.6);
       }
 
       .memories-grid {
@@ -130,35 +131,99 @@
         background-size: cover;
         color: #3a2f1c;
         font-size: 16px;
-        line-height: 1.5;
+        line-height: 1.6;
         text-align: left;
-
         box-shadow: none !important;
         border-radius: 0 !important;
         background-color: transparent !important;
         text-transform: none;
       }
 
-      /* Fade animation */
       .fade-out {
         opacity: 0;
-        transition: opacity 0.5s ease;
+        transition: opacity 0.5s ease-in;
       }
 
       .fade-in {
         opacity: 1;
-        transition: opacity 0.5s ease;
+        transition: opacity 0.5s ease-out;
+      }
+
+      /* Progress bar */
+      .progress-container {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40%;
+        height: 20px;
+        z-index: 5;
+      }
+
+      .progress-line {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        height: 1px;
+        width: 100%;
+        background-color: rgba(72, 72, 72, 0.3);
+        border-radius: 1px;
+        z-index: 0;
+      }
+
+      .progress-fill {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        height: 2px;
+        width: 0%;
+        background-color: #f03d58;
+        border-radius: 1px;
+        transition: width 0.5s ease;
+        z-index: 0;
+      }
+
+      .progress-dots-wrapper {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        z-index: 1;
+        margin-top: 5px;
+      }
+
+      .progress-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgba(72, 72, 72, 0.7);
+        transition: all 0.4s ease-out;
+      }
+
+      .progress-dot.active {
+        background-color: #f03d58;
+        transform: scale(1.5);
+        box-shadow: 0 0 10px #f03d58;
       }
     </style>
   </head>
   <body>
     <canvas id="confetti"></canvas>
-    <audio id="song" src="kali_uchis_melting.mp3" preload="auto"></audio>
+    <audio id="song" src="kali_uchis_melting.mp3" preload="auto" loop></audio>
 
     <div class="container fade-in">
       <h1 id="reasonTitle"></h1>
       <div id="reasonImageContainer"></div>
       <div id="buttons" style="margin-top: 20px"></div>
+    </div>
+
+    <div class="progress-container">
+      <div class="progress-line"></div>
+      <div class="progress-fill" id="progressFill"></div>
+      <div class="progress-dots-wrapper" id="progressDotsWrapper"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -167,52 +232,52 @@
         {
           text: "READ!!!!",
           intro: true,
-          spanText: `This is the modern day equivalent of sending a letter through a hawk. 
-                I took a couple hours off and wrote 436 lines of code to make this website for you hoping it would be a thoughtful way to reach out without pressure. Just a give it a chance. You won't regret it.
-                CLICK BELOW TO START `,
-        },
-        { text: "13 REASONS WHY WE DESERVE A SECOND CHANCE" },
-        {
-          text: "Reason 1: You make me happy ❤️",
           spanText:
-            "with the things i couldn't share with anyone else, even my family, you were the one i could always count on to listen",
+            "This is the modern day equivalent of sending a letter through a hawk. I made this website for you. It took a lot of effort and thought and a lot of lines of code. Just a give it a chance. Hope you find it cute. CLICK BELOW TO START",
+        },
+        {
+          text: "13 REASONS WHY WE DESERVE A SECOND CHANCE",
+          spanText: ":)",
+        },
+        {
+          text: "Reason 1: You made me happy ❤️",
+          spanText:
+            "my time with you was one of the best thing that ever happened to me. with the things i couldn't share with anyone else, even my family, you were the one i could always count on to listen",
         },
         {
           text: "Reason 2: We were there for each other 💕",
           spanText:
-            "you had just moved to cardiff, less friends, new school, and it was me who was there for you and you for me when i didn't know my way forward with school",
+            "you had just moved to cardiff, less friends, new school, and it was me who was there for you and you for me when i was trying to get into uni.",
         },
         {
           text: "Reason 3: We supported each others' dreams 😭",
           spanText:
-            "remember when i used to help you with math and check your essays? also when you used to check out my website designs and let me know what wasn't right? ",
+            "i used to help you with math in uni, you also when you used to check out my website designs when i started gighub. ",
         },
         {
-          text: "Reason 4: I miss your voice (your singing and yapping voice) 🙁",
+          text: "Reason 4: I miss your voice  🙁",
           spanText:
-            "when we first met, you tried curing my insomnia with fucking twinkle twinkle little stars.😭",
+            "you remember last year around this time, you tried to sing me twinkle twinkle little stars to sleep. 😭",
         },
         {
           text: "Reason 5: we never got to finish outer banks or the notebook",
           spanText:
-            "Gotta finish what we started, right? And there's so much that has happened recently i would like to let you know",
+            "Gotta finish what we started, right? And there's so much that has happened recently i would like you to know.",
         },
         {
           text: "Reason 6: We can choose growth over the shame of our mistakes🤔",
-          spanText:
-            "I trust we both have had time to reflect on whatever went wrong and won't repeat them ",
+          spanText: " run away or learn from it.",
         },
         {
           text: "Reason 7: Trust can be rebuilt⏰",
           spanText:
-            "I dont wanna punish the present with the past, with what was only a phase. Your new friends made you feel like you belonged, and i understand that now. We can rebuild that trust we once had without killing your friendships or our love ",
+            "I dont wanna punish the present with the past, with what was only a phase. Your new friends make you feel like you belong cause they're filipino as well. I can see that now.  ",
         },
         {
           text: "Reason 8: Fights are normal in every relationship, even your next one🫰🏾",
           spanText:
-            "Even with your mom or your sister, you argue with them but that doesnt mean you stop loving each other. every relationship has this stage, when it's easier to let go than hold on. It would be a shame to see you actually give up soo quickly",
+            "Unless youre never gonna be in another relationship, best believe the same issues will come up. and one day you'll have to face them. why not now?  ",
         },
-
         {
           text: "Reason 9: you helped me make good decisions 😘",
           spanText:
@@ -225,12 +290,12 @@
         {
           text: "Reason 11: I could be myself around you. and same for you 🕵🏾‍♀️",
           spanText:
-            "At the start we didn't expect perfection, we were just ourselves cause we were still just learning.  ",
+            "At the start we didn't expect perfection, we were just ourselves cause we were still just learning. ",
         },
         {
           text: "Reason 12: we had a lot of good memories and I wouldn't mind reliving them again 🙂",
           spanText:
-            "imagine the peace after being able to fight through this situation right here. More understanding, less arguments, betterr communication. ",
+            "imagine the peace after being able to fight through this situation. More understanding, less arguments, betterr communication. ",
         },
         {
           text: "Reason 13: Mahal kita higit sa sinuman. ❤️",
@@ -253,21 +318,12 @@
         {
           text: "Dear Joyce, ",
           oldPaper: true,
-          textContent: `I hope this letter finds you well, even after everything that's happened recently, you walking away without closure felt like a book without the last page.
-
-      I'm not writing this to argue over the past or blame, but i can understand how i overwhelmed you with my demands at times, which may have pushed you away and that only makes room for correction. Correction for both of us. And we both can’t pretend that we’re totally indifferent about each other all of a sudden cause if it's one thing i know, you didn't stop loving me, you just got tired of fighting over the same things. I did too.
-
-      But we can either part ways and keep carrying the weight of how we could’ve done things differently or we can learn from them and grow to never repeat the mistakes( Proverbs 26:11 ) and never mention them again. It was never meant to be easy, but easy isn’t worth fighting for.
-
-      Ky, If we do in fact only live once, I want to share every laugh, every struggle, every dream with you in this one. Let’s make new memories, as familiar strangers. Saves you the trouble of telling someone else that you prefer tulips to roses or that you love pink and oversize jerseys. Let's give a second chapter to our story and give it the happily ever after ending we deserve. . Best regards shorty. I hope this appeals to the good side of you :)
-
-      Yours Failthfully, Devonte Andy.
-      `,
+          textContent: `I hope this letter finds you well, even after everything that's happened recently, you walking away without closure felt like a book without the last page. I'm not writing this to argue over the past or blame you, but i can understand how i overwhelmed you with my demands at times, which may have pushed you away and in this case towards your new friends and that only makes room for correction. Correction for both of us. And we both can’t pretend that we’re totally indifferent about each other all of a sudden cause i know you never stopped loving me, you just got tired of fighting over the same things repeatedly and so did I. We can either part ways and keep carrying the weight of how we could’ve done things differently or we can learn from them and grow to never repeat our mistakes and lies( Proverbs 26:11 ) or mention them again. It was never meant to be easy, but easy isn’t worth fighting for. If we do in fact only live once, I want to share every laugh, every struggle, every dream with you in this one. Let’s make new memories, as familiar strangers. Saves you the trouble of telling someone else that you prefer tulips to roses or that you love pink and oversize jerseys. And they may not love and understand you the way i do. And you know what they say, love who loves you not who you love. Let's give a second chapter to our story and give it the happily ever after ending we deserve.  Best regards shorty. I hope this appeals to the good side of you :) Yours Failthfully, Devonte Andy.`,
         },
         {
-          text: "Kyari, would you give yourself one more chance to try again??",
+          text: "Kyari, would you give us one more chance to try again??",
           final: true,
-          spanText: "PRESS NO AND DIE INSTANTLY 🧌",
+          spanText: "it won't hurt to try again. 🧌",
         },
       ];
 
@@ -275,8 +331,26 @@
       const title = document.getElementById("reasonTitle");
       const imageContainer = document.getElementById("reasonImageContainer");
       const buttonsDiv = document.getElementById("buttons");
-      const song = document.getElementById("song");
       const container = document.querySelector(".container");
+      const progressFill = document.getElementById("progressFill");
+      const dotsWrapper = document.getElementById("progressDotsWrapper");
+      const song = document.getElementById("song");
+
+      let dots = [];
+      reasons.forEach(() => {
+        const dot = document.createElement("div");
+        dot.classList.add("progress-dot");
+        dotsWrapper.appendChild(dot);
+        dots.push(dot);
+      });
+
+      function updateProgress(index) {
+        dots.forEach((dot, i) => {
+          if (i <= index) dot.classList.add("active");
+          else dot.classList.remove("active");
+        });
+        progressFill.style.width = (index / (dots.length - 1)) * 100 + "%";
+      }
 
       function showReason(index) {
         container.classList.remove("fade-in");
@@ -287,24 +361,37 @@
           title.textContent = reason.text;
           buttonsDiv.innerHTML = "";
           imageContainer.innerHTML = "";
+          updateProgress(index);
 
           container.style.background = "rgb(255, 255, 255, 0.2)";
-          container.style.borderRadius = "30% 60% 50% 60% / 60% 80% 70% 95%";
-          container.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.1)";
+          container.style.borderRadius = "40% 60% 50% 60% / 60% 80% 70% 95%";
+          container.style.boxShadow = "0 10px 30px rgba(240, 61, 88, 0.6)";
           container.style.padding = "60px";
-
-          if (reason.intro) {
+          /*   max-width: 700px;
+        margin: auto;
+        padding: 60px;
+        z-index: 1;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 40% 60% 50% 60% / 60% 80% 70% 95%;
+        box-shadow: 0 10px 30px rgb(240, 61, 88, 0.6);
+        backdrop-filter: blur(5px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        color: rgb(42, 42, 42);*/
+          if (reason.spanText) {
             const spanEl = document.createElement("span");
             spanEl.textContent = reason.spanText;
             spanEl.style.display = "block";
             spanEl.style.marginTop = "10px";
-            spanEl.style.fontSize = "24px";
-            spanEl.style.color = "red";
-            // spanEl.style.fontFamily = "Caveat, cursive  ";
-            spanEl.style.letterSpacing = "1.5px";
-            spanEl.style.textTransform = "none";
+            spanEl.style.fontSize = reason.intro ? "20px" : "18px";
+            spanEl.style.color = reason.intro ? "red" : "#f03d58";
             imageContainer.appendChild(spanEl);
+          }
 
+          if (reason.intro) {
             const startBtn = document.createElement("button");
             startBtn.textContent = "START❤️";
             startBtn.classList.add("yes");
@@ -314,7 +401,6 @@
               showReason(currentIndex);
             };
             buttonsDiv.appendChild(startBtn);
-
             container.classList.remove("fade-out");
             container.classList.add("fade-in");
             return;
@@ -345,6 +431,10 @@
             paperDiv.classList.add("old-paper");
             paperDiv.textContent = reason.textContent;
             imageContainer.appendChild(paperDiv);
+          } else {
+            container.style.backgroundSize = "cover";
+            container.style.borderRadius = "30% 60% 50% 60% / 60% 80% 70% 95%";
+            container.style.boxShadow = "0 10px 30px rgba(225, 105, 123, 0.6)";
           }
 
           if (index > 0 && !reason.final) {
@@ -358,17 +448,6 @@
             buttonsDiv.appendChild(prevBtn);
           }
 
-          if (reason.spanText) {
-            const spanEl = document.createElement("span");
-            spanEl.textContent = reason.spanText;
-            spanEl.style.display = "block";
-            spanEl.style.marginTop = "5px";
-            spanEl.style.fontSize = "16px";
-            spanEl.style.fontWeight = 300;
-            spanEl.style.color = "white";
-            title.appendChild(spanEl);
-          }
-
           if (!reason.final) {
             const nextBtn = document.createElement("button");
             nextBtn.textContent = "Next 👉🏾";
@@ -380,7 +459,7 @@
             buttonsDiv.appendChild(nextBtn);
           } else if (reason.final) {
             const yesBtn = document.createElement("button");
-            yesBtn.textContent = "YES ❤️";
+            yesBtn.textContent = " yah :)🙂";
             yesBtn.classList.add("yes");
             yesBtn.onclick = () => {
               title.textContent = "I swear on your life you won’t regret it ❤️";
@@ -416,7 +495,7 @@
             buttonsDiv.appendChild(yesBtn);
 
             const noBtn = document.createElement("button");
-            noBtn.textContent = "No 😢";
+            noBtn.textContent = "nope ❌";
             noBtn.classList.add("no");
             noBtn.onmouseover = () => {
               let x = Math.random() * 200 - 100;
